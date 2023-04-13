@@ -1,0 +1,12 @@
+{
+  "primary": {
+    "certificateFile": {
+      "neat": "is not a valid file name"
+    },
+    "keyFile": [
+      "cool",
+      "neat"
+    ]
+  }
+}
+

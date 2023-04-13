@@ -1,0 +1,11 @@
+*.swp
+*.out
+*.log
+vendor
+pkg
+src
+coverage*
+.idea
+
+server/cpuprofile
+server/memprofile
