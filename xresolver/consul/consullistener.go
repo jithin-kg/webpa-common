@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 	"github.com/go-kit/kit/log"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/service/monitor"
-	"github.com/xmidt-org/webpa-common/xresolver"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/service/monitor"
+	"github.com/jithin-kg/webpa-common/xresolver"
 	"regexp"
 )
 

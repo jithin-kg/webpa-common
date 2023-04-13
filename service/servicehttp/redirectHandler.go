@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/go-kit/kit/log/level"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/service"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/service"
 )
 
 // KeyFunc examines an HTTP request and produces the service key to use when finding

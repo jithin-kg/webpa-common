@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 const (

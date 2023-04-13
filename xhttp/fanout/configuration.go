@@ -6,9 +6,9 @@ import (
 
 	gokithttp "github.com/go-kit/kit/transport/http"
 	"github.com/justinas/alice"
-	"github.com/xmidt-org/webpa-common/xhttp"
-	"github.com/xmidt-org/webpa-common/xhttp/xcontext"
-	"github.com/xmidt-org/webpa-common/xhttp/xtimeout"
+	"github.com/jithin-kg/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xhttp/xcontext"
+	"github.com/jithin-kg/webpa-common/xhttp/xtimeout"
 )
 
 const (

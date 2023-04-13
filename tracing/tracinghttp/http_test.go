@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/xmidt-org/webpa-common/tracing"
-	"github.com/xmidt-org/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/tracing"
+	"github.com/jithin-kg/webpa-common/xhttp"
 )
 
 func TestHeadersForSpans(t *testing.T) {

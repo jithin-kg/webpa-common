@@ -2,7 +2,7 @@ package aws
 
 import (
 	"github.com/go-kit/kit/metrics"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 const (

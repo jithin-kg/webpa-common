@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/secure"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/secure"
 )
 
 const (

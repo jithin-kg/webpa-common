@@ -2,8 +2,8 @@ package bookkeeping
 
 import (
 	"bytes"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/xhttp/xcontext"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/xhttp/xcontext"
 	"net/http"
 	"time"
 )

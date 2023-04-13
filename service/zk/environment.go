@@ -5,8 +5,8 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/go-kit/kit/sd"
 	gokitzk "github.com/go-kit/kit/sd/zk"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/service"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/service"
 )
 
 func newService(r Registration) (string, gokitzk.Service) {

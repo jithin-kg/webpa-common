@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
-	AWS "github.com/xmidt-org/webpa-common/webhook/aws"
-	"github.com/xmidt-org/webpa-common/xhttp"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	AWS "github.com/jithin-kg/webpa-common/webhook/aws"
+	"github.com/jithin-kg/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 const (

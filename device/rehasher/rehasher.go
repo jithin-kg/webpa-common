@@ -8,10 +8,10 @@ import (
 	"github.com/go-kit/kit/metrics"
 	"github.com/go-kit/kit/metrics/provider"
 
-	"github.com/xmidt-org/webpa-common/device"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/service"
-	"github.com/xmidt-org/webpa-common/service/monitor"
+	"github.com/jithin-kg/webpa-common/device"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/service"
+	"github.com/jithin-kg/webpa-common/service/monitor"
 )
 
 const (

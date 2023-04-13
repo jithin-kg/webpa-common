@@ -15,9 +15,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/xhttp"
-	"github.com/xmidt-org/webpa-common/xhttp/xhttptest"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xhttp/xhttptest"
 )
 
 func testHandlerBodyError(t *testing.T) {

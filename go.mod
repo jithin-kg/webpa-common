@@ -1,4 +1,4 @@
-module github.com/xmidt-org/webpa-common
+module github.com/jithin-kg/webpa-common
 
 go 1.13
 

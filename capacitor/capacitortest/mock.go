@@ -2,7 +2,7 @@ package capacitortest
 
 import (
 	"github.com/stretchr/testify/mock"
-	"github.com/xmidt-org/webpa-common/capacitor"
+	"github.com/jithin-kg/webpa-common/capacitor"
 )
 
 type Mock struct {

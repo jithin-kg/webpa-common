@@ -3,7 +3,7 @@ package fanout
 import (
 	"net/http"
 
-	"github.com/xmidt-org/webpa-common/tracing"
+	"github.com/jithin-kg/webpa-common/tracing"
 )
 
 // Result is the result from a single fanout HTTP transaction

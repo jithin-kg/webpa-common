@@ -12,13 +12,13 @@ import (
 
 	"github.com/go-kit/kit/log"
 
-	"github.com/xmidt-org/webpa-common/convey"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/convey"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 
 	"github.com/justinas/alice"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/logging"
 	"github.com/xmidt-org/wrp-go/v3"
 )
 

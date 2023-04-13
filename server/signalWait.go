@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/go-kit/kit/log"
-	"github.com/xmidt-org/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/logging"
 )
 
 // SignalWait blocks until any of a set of signals is encountered.  The signal which caused this function

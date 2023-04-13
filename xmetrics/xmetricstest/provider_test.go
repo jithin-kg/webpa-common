@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 func testNewProviderDefault(t *testing.T) {

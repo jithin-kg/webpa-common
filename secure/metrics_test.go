@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 func newTestJWTValidationMeasure() *JWTValidationMeasures {

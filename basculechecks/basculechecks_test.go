@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/xmidt-org/bascule"
-	"github.com/xmidt-org/webpa-common/xmetrics/xmetricstest"
+	"github.com/jithin-kg/webpa-common/xmetrics/xmetricstest"
 )
 
 func TestCreateBasculeCheck(t *testing.T) {

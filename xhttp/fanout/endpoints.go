@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/xmidt-org/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xhttp"
 )
 
 var (

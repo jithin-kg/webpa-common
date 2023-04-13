@@ -10,7 +10,7 @@ import (
 
 	"github.com/SermoDigital/jose/jws"
 	"github.com/SermoDigital/jose/jwt"
-	"github.com/xmidt-org/webpa-common/secure/key"
+	"github.com/jithin-kg/webpa-common/secure/key"
 )
 
 var (

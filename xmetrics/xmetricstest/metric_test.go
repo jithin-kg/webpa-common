@@ -6,7 +6,7 @@ import (
 	"github.com/go-kit/kit/metrics"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 func TestNewCounter(t *testing.T) {

@@ -2,9 +2,9 @@ package key
 
 import (
 	"fmt"
-	"github.com/xmidt-org/webpa-common/concurrent"
-	"github.com/xmidt-org/webpa-common/resource"
-	"github.com/xmidt-org/webpa-common/types"
+	"github.com/jithin-kg/webpa-common/concurrent"
+	"github.com/jithin-kg/webpa-common/resource"
+	"github.com/jithin-kg/webpa-common/types"
 	"time"
 )
 

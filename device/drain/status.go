@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/xmidt-org/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xhttp"
 )
 
 // Status returns a JSON message describing the status of the drain job

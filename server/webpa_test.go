@@ -2,7 +2,7 @@ package server
 
 import (
 	"errors"
-	//	"github.com/xmidt-org/webpa-common/health"
+	//	"github.com/jithin-kg/webpa-common/health"
 	"crypto/tls"
 	"net/http"
 	"sync"
@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 func TestListenAndServeNonSecure(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/xmidt-org/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/logging"
 )
 
 func testStartServeHTTPDefaultLogger(t *testing.T) {

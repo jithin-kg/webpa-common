@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/xmidt-org/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xhttp"
 	"github.com/xmidt-org/wrp-go/v3"
 )
 

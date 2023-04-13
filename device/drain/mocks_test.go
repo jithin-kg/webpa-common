@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/xmidt-org/webpa-common/device"
+	"github.com/jithin-kg/webpa-common/device"
 )
 
 type mockDrainer struct {

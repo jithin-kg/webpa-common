@@ -1,6 +1,6 @@
 package monitor
 
-import "github.com/xmidt-org/webpa-common/capacitor"
+import "github.com/jithin-kg/webpa-common/capacitor"
 
 // DelayedListener is a decorator for Listener that uses a capacitor to implement a grace period
 // between service discovery events.

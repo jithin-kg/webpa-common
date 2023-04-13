@@ -10,9 +10,9 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/go-kit/kit/metrics/discard"
 
-	"github.com/xmidt-org/webpa-common/device"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/device"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 var (

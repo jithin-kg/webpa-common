@@ -15,8 +15,8 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	AWS "github.com/xmidt-org/webpa-common/webhook/aws"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	AWS "github.com/jithin-kg/webpa-common/webhook/aws"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 func testNotifierReady(t *testing.T, m *AWS.MockSVC, mv *AWS.MockValidator, r *mux.Router, f *Factory) (*httptest.Server, Registry) {

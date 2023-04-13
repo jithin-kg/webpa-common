@@ -6,11 +6,11 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/go-kit/kit/sd"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/service"
-	"github.com/xmidt-org/webpa-common/service/consul"
-	"github.com/xmidt-org/webpa-common/service/zk"
-	"github.com/xmidt-org/webpa-common/xviper"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/service"
+	"github.com/jithin-kg/webpa-common/service/consul"
+	"github.com/jithin-kg/webpa-common/service/zk"
+	"github.com/jithin-kg/webpa-common/xviper"
 )
 
 var (

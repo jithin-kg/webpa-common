@@ -7,9 +7,9 @@ import (
 
 	"github.com/go-kit/kit/log/level"
 	"github.com/gorilla/schema"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/xhttp"
-	"github.com/xmidt-org/webpa-common/xhttp/converter"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/xhttp"
+	"github.com/jithin-kg/webpa-common/xhttp/converter"
 )
 
 type Start struct {

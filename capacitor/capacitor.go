@@ -5,7 +5,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/xmidt-org/webpa-common/clock"
+	"github.com/jithin-kg/webpa-common/clock"
 )
 
 // DefaultDelay is the default time a capacitor waits to execute the most recently

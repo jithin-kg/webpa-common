@@ -11,9 +11,9 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	gokithttp "github.com/go-kit/kit/transport/http"
-	"github.com/xmidt-org/webpa-common/logging"
-	"github.com/xmidt-org/webpa-common/tracing"
-	"github.com/xmidt-org/webpa-common/tracing/tracinghttp"
+	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/jithin-kg/webpa-common/tracing"
+	"github.com/jithin-kg/webpa-common/tracing/tracinghttp"
 )
 
 var (

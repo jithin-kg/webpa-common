@@ -1,7 +1,7 @@
 package key
 
 import (
-	"github.com/xmidt-org/webpa-common/concurrent"
+	"github.com/jithin-kg/webpa-common/concurrent"
 	"sync"
 	"sync/atomic"
 	"time"

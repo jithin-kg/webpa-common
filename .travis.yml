@@ -20,7 +20,7 @@ install:
   - go mod vendor
 
 script:
-  # Read https://github.com/xmidt-org/webpa-common/pull/462
+  # Read https://github.com/jithin-kg/webpa-common/pull/462
   # In PR, changes were made to fix intermittently failing tests
   # Filter out packages of low impact (not used anywhere else in xmidt) that have this issue.
 

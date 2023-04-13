@@ -3,7 +3,7 @@ package basculechecks
 import (
 	"github.com/go-kit/kit/metrics"
 	"github.com/go-kit/kit/metrics/provider"
-	"github.com/xmidt-org/webpa-common/xmetrics"
+	"github.com/jithin-kg/webpa-common/xmetrics"
 )
 
 //Names for our metrics

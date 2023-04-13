@@ -3,8 +3,8 @@ package health
 import (
 	"errors"
 	"github.com/stretchr/testify/mock"
-	"github.com/xmidt-org/webpa-common/health"
-	"github.com/xmidt-org/webpa-common/httppool"
+	"github.com/jithin-kg/webpa-common/health"
+	"github.com/jithin-kg/webpa-common/httppool"
 	"net/http"
 	"testing"
 )

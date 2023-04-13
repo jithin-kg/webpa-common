@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/xmidt-org/webpa-common/device"
-	"github.com/xmidt-org/webpa-common/service"
-	"github.com/xmidt-org/webpa-common/service/monitor"
+	"github.com/jithin-kg/webpa-common/device"
+	"github.com/jithin-kg/webpa-common/service"
+	"github.com/jithin-kg/webpa-common/service/monitor"
 )
 
 func testNewServiceEndpointsHashError(t *testing.T) {

@@ -3,7 +3,7 @@ package store
 import (
 	"errors"
 	"github.com/stretchr/testify/assert"
-	"github.com/xmidt-org/webpa-common/concurrent"
+	"github.com/jithin-kg/webpa-common/concurrent"
 	"sync"
 	"sync/atomic"
 	"testing"

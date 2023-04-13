@@ -3,7 +3,7 @@ package hash
 import (
 	"errors"
 	"github.com/stretchr/testify/assert"
-	"github.com/xmidt-org/webpa-common/concurrent"
+	"github.com/jithin-kg/webpa-common/concurrent"
 	"sync"
 	"testing"
 	"time"

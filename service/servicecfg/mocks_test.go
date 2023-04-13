@@ -1,8 +1,8 @@
 package servicecfg
 
 import (
-	"github.com/xmidt-org/webpa-common/service/consul"
-	"github.com/xmidt-org/webpa-common/service/zk"
+	"github.com/jithin-kg/webpa-common/service/consul"
+	"github.com/jithin-kg/webpa-common/service/zk"
 )
 
 // resetEnvironmentFactories resets the global factories for service.Environment objects
