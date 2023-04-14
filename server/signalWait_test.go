@@ -1,13 +1,14 @@
 package server
 
 import (
+	"fmt"
 	"os"
 	"sync"
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/jithin-kg/webpa-common/logging"
+	"github.com/stretchr/testify/assert"
 )
 
 func testSignalWaitBasic(t *testing.T) {
@@ -41,6 +42,7 @@ func testSignalWaitBasic(t *testing.T) {
 	select {
 	case actual := <-finished:
 		assert.Equal(os.Kill, actual)
+		fmt.Println("Test passed only finished when os.kill signal passed to signal channel")
 	case <-time.After(10 * time.Second):
 		assert.Fail("SignalWait did not complete within the timeout")
 	}
@@ -72,6 +74,8 @@ func testSignalWaitForever(t *testing.T) {
 			// passing
 		}
 	}
+	// Without this close the SignalWait function will wait indefinitely,
+	// becase noWaiton input given
 
 	close(signals)
 	select {

@@ -16,15 +16,15 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/go-kit/kit/metrics"
-	"github.com/justinas/alice"
-	stdprometheus "github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/jithin-kg/webpa-common/concurrent"
 	"github.com/jithin-kg/webpa-common/health"
 	"github.com/jithin-kg/webpa-common/logging"
 	"github.com/jithin-kg/webpa-common/xhttp"
 	"github.com/jithin-kg/webpa-common/xlistener"
 	"github.com/jithin-kg/webpa-common/xmetrics"
+	"github.com/justinas/alice"
+	stdprometheus "github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 const (
@@ -58,34 +58,91 @@ type executor interface {
 	Shutdown(ctx context.Context) error
 }
 
+// RestartableFunc returns a function that can be restarted when it returns a specific error.
+// The returned function takes no parameters and returns an error.
+// It accepts a logger, a function, and a list of errors.
+// The logger is used for logging debug messages.
+// The function is the one that needs to be restarted on a specific error.
+// The list of errors is used to specify the error that can trigger a restart.
+/**
+*
+logger is the logger instance used for logging debug messages
+f is a function that is expected to be restarted
+errs ...error is a variable length argument list of errors that can trigger a restart of the function
+
+The point of a function like RestartableFunc is to provide a way to automatically restart
+a service if it crashes or fails in some way. This is especially useful in long-running services
+that need to be highly available and responsive.
+:emoji
+The RestartableFunc() function uses a technique called tail call optimization to avoid stack overflow. In Golang,
+ this optimization is built into the compiler and the language runtime.
+###############################
+In a recursive function, the tail call optimization replaces the current call stack frame with the next recursive call.
+This means that the function does not create a new stack frame for each recursive call,
+ which would eventually cause a stack overflow. Instead, the function reuses the existing stack frame and overwrites it with new data.
+ In the case of RestartableFunc(), it is using an iterative approach instead of a recursive approach, but the same tail call optimization applies.
+ The function is repeatedly calling itself, but it is not creating a new stack frame for each call. Instead, it is reusing the same stack frame and overwriting it with new data.
+Therefore, as long as the RestartableFunc() function is tail-recursive or tail-iterative, it should not cause a stack overflow, even if it runs indefinitely.
+but golang support tail iterative approach
+
+#####################################################################
+In the case of RestartableFunc(), it is using an iterative approach instead of a recursive approach, but the same tail call optimization applies. The function is repeatedly calling itself, but it is not creating a new stack frame for each call. Instead, it is reusing the same stack frame and overwriting it with new data.
+
+Therefore, as long as the RestartableFunc() function is tail-recursive or tail-iterative, it should not cause a stack overflow, even if it runs indefinitely.
+**/
 func RestartableFunc(logger log.Logger, f func() error, errs ...error) error {
 	var err error
 	logging.Debug(logger).Log(logging.MessageKey(), "starting restartable func", "errors", errs)
 	breakErrors := make(map[error]bool)
+	// populate breakErrors map
+	// In this loop, a map breakErrors is populated using the errs parameter.
+	//The keys of the map are the errors that can trigger a restart
 	for _, elem := range errs {
 		breakErrors[elem] = true
 	}
+	// For loop to keep restarting function on error specified in breakErrors map
+
+	// In this loop, the function f is executed until an error occurs.
+	//If the error is in the breakErrors map, the function f is stopped, and the error
+	// is returned. Otherwise, the function f is restarted. A debug message is logged
+	//each time the function is restarted.
 	for {
 		err = f()
 		if breakErrors[err] {
 			break
 		}
+		// Log debug message when the function is restarted due to error
 		logging.Debug(logger).Log(logging.MessageKey(), "restartable func making a loop", logging.ErrorKey(), err)
 	}
+	// Log debug message when the function exits
+	//Finally, a debug message is logged indicating the function has exited.
+	//The error encountered in the last iteration is returned.
 	logging.Debug(logger).Log(logging.MessageKey(), "restartable func exiting", logging.ErrorKey(), err)
 	return err
 }
 
 // Serve is like ListenAndServe, but accepts a custom net.Listener
+/**
+ ListenAndServe is a utility function which provides a default HTTP server configuration
+and starts the server on the provided address.
+This function starts a new HTTP server in a separate goroutine using the provided net.Listener and executor.
+It also logs the start of the server using the provided logger.
+The finalizer parameter is a function that will be called after the server is shut down. This can be used for cleanup or other purposes.
+**/
 func Serve(logger log.Logger, l net.Listener, e executor, finalizer func()) {
+
 	go func() {
+		//Inside the goroutine, the defer statement ensures that the finalizer function is called at the end of the function execution.
+		// The finalizer function is called using defer to make sure it gets called even if there are errors.
 		defer finalizer()
+		// Log that the server is starting
 		logger.Log(
 			level.Key(), level.ErrorValue(),
 			logging.MessageKey(), "starting server",
 		)
 		// the assumption is tlsConfig has already been set
 		// Note: the tlsConfig should have the certs and goodness
+		// Call RestartableFunc to start the server and handle potential errors
 		logger.Log(
 			level.Key(), level.ErrorValue(),
 			logging.MessageKey(), "server exited",
@@ -540,10 +597,31 @@ func (w *WebPA) flavor() string {
 // The supplied http.Handler is used for the primary server.  If the alternate server has an address,
 // it will also be used for that server.  The health server uses an internally create handler, while pprof and metrics
 // servers use http.DefaultServeMux.  The health Monitor created from configuration is returned so that other
-// infrastructure can make use of it.
+// infrastructure can make use of it.\
+
+/*
+*
+*logger: a logger object used for logging throughout the function
+health: a health object used for monitoring the health of the server
+registry: a metrics registry object used for registering metrics
+primaryHandler: an HTTP handler object that is the primary handler for incoming requests
+The method returns three values:
+
+health.Monitor: a health monitor object for monitoring the health of the server
+concurrent.Runnable: a concurrent runnable object used for running the server concurrently
+<-chan struct{}: a channel of empty structs used for signaling when the server is done
+*
+*/
 func (w *WebPA) Prepare(logger log.Logger, health *health.Health, registry xmetrics.Registry, primaryHandler http.Handler) (health.Monitor, concurrent.Runnable, <-chan struct{}) {
+	// The `Prepare` method takes four parameters:
+	// 1. `logger`: a logger object that will be used to log messages.
+	// 2. `health`: a pointer to a `health.Health` object which is used for health checks.
+	// 3. `registry`: an `xmetrics.Registry` object which is used to collect metrics.
+	// 4. `primaryHandler`: an `http.Handler` object which will be used as the primary handler for requests.
+
 	// allow the health instance to be non-nil, in which case it will be used in favor of
 	// the WebPA-configured instance.
+	// In the next few lines, some static headers are created which will be added to the HTTP responses.
 	var (
 		staticHeaders = xhttp.StaticHeaders(http.Header{
 			fmt.Sprintf("X-%s-Build", w.ApplicationName):      {w.build()},
@@ -552,27 +630,37 @@ func (w *WebPA) Prepare(logger log.Logger, health *health.Health, registry xmetr
 			fmt.Sprintf("X-%s-Flavor", w.ApplicationName):     {w.flavor()},
 			fmt.Sprintf("X-%s-Start-Time", w.ApplicationName): {time.Now().UTC().Format(time.RFC822)},
 		})
-
+		// The following variables are used to keep track of the number of active connections, rejected connections, and maximum processors.
 		activeConnections = registry.NewGauge("active_connections")
 		rejectedCounter   = registry.NewCounter("rejected_connections")
 		maxProcs          = registry.NewGauge("maximum_processors")
-
+		// `healthHandler` and `healthServer` are created using the `health.New` method which returns an `http.Handler` and an `http.Server` respectively.
 		healthHandler, healthServer = w.Health.New(logger, alice.New(staticHeaders), health)
 
-		servers      []*http.Server
+		// `servers` is an array of pointers to `http.Server` objects which will be used to serve incoming requests.
+		servers []*http.Server
+		// `finalizeOnce` is a `sync.Once` object which will be used to ensure that the finalizer function is only called once.
 		finalizeOnce sync.Once
-		done         = make(chan struct{})
-		finalizer    = func() {
+		// `done` is a channel which is used to signal when the finalizer function has completed.
+		done = make(chan struct{})
+		// `finalizer` is a function which is called when the `Prepare` method exits. It is used to shut down the servers.
+		finalizer = func() {
 			finalizeOnce.Do(func() {
 				defer close(done)
+				// Loop through each server and log a message before closing it.
 				for _, s := range servers {
 					logger.Log(level.Key(), level.ErrorValue(), logging.MessageKey(), "finalizing server", logging.ErrorKey(), s.Close())
 				}
 			})
 		}
 	)
+	// The `Prepare` method returns three values:
+	// 1. `healthHandler`: an `http.Handler` object which is used for health checks.
+	// 2. `concurrent.Runnable`: a `Runnable` object which can be used to start and stop the server.
+	// 3. `<-chan struct{}`: a channel which will be closed when the finalizer function has completed.
 
 	return healthHandler, concurrent.RunnableFunc(func(waitGroup *sync.WaitGroup, shutdown <-chan struct{}) error {
+		// Decorate the primary handler with static headers and basic metrics
 		primaryHandler = staticHeaders(w.decorateWithBasicMetrics(registry, primaryHandler))
 
 		// create all the servers first, so that we can populate the servers slice
@@ -580,10 +668,11 @@ func (w *WebPA) Prepare(logger log.Logger, health *health.Health, registry xmetr
 		primaryServer := w.Primary.New(logger, primaryHandler)
 		if primaryServer == nil {
 			// the primary server is required
+			// If the primary server is nil, close the done channel and return an error
 			close(done)
 			return ErrorNoPrimaryAddress
 		}
-
+		// Create an alternate server instance, if it exists, and add it to the servers slice
 		alternateServer := w.Alternate.New(logger, primaryHandler)
 		if alternateServer != nil {
 			servers = append(servers, alternateServer)
@@ -614,6 +703,7 @@ func (w *WebPA) Prepare(logger log.Logger, health *health.Health, registry xmetr
 		)
 
 		if err != nil {
+			// If there's an error creating the listener, close the done channel and return the error
 			close(done)
 			return err
 		}
@@ -634,10 +724,10 @@ func (w *WebPA) Prepare(logger log.Logger, health *health.Health, registry xmetr
 				close(done)
 				return err
 			}
-
+			// Serve the alternate server
 			Serve(alternateLogger, alternateListener, alternateServer, finalizer)
 		}
-
+		// Serve the primary server
 		Serve(primaryLogger, primaryListener, primaryServer, finalizer)
 
 		if healthHandler != nil && healthServer != nil {
@@ -668,8 +758,28 @@ func (w *WebPA) Prepare(logger log.Logger, health *health.Health, registry xmetr
 	}), done
 }
 
-//decorateWithBasicMetrics wraps a WebPA server handler with basic instrumentation metrics
+// decorateWithBasicMetrics wraps a WebPA server handler with basic instrumentation metrics
+/**
+	decorateWithBasicMetrics is a function that wraps an HTTP handler with basic instrumentation metrics using a PrometheusProvider.
+	The decorateWithBasicMetrics function is used to wrap an HTTP handler with basic instrumentation metrics using a PrometheusProvider.
+	The p parameter is a xmetrics.PrometheusProvider which provides the Prometheus metrics registry used to track the metrics for the HTTP handler.
+	The next parameter is the HTTP handler to be wrapped with the instrumentation metrics.
+	requestCounter is a Prometheus counter used to count the number of HTTP requests.
+	inFlight is a Prometheus gauge used to track the number of in-flight HTTP requests.
+	requestDuration is a Prometheus histogram used to track the duration of HTTP requests.
+	requestSize is a Prometheus histogram used to track the size of HTTP requests.
+	responseSizeVec is a Prometheus histogram used to track the size of HTTP responses.
+	timeToWriteHeader is a Prometheus histogram used to track the time it takes to write HTTP response headers.
+	The promhttp package provides functions to instrument HTTP handlers with Prometheus metrics.
+	The InstrumentHandlerInFlight function is used to track the number of in-flight HTTP requests.
+	The InstrumentHandlerCounter function is used to count the number of HTTP requests.
+	The InstrumentHandlerDuration function is used to track the duration of HTTP requests.
+	The InstrumentHandlerResponseSize function is used to track the size of HTTP responses.
+	The InstrumentHandlerRequestSize function is used to track the size of HTTP requests.
+	The InstrumentHandlerTimeToWriteHeader function is used to track the time it takes to write HTTP response headers.
+**/
 func (w *WebPA) decorateWithBasicMetrics(p xmetrics.PrometheusProvider, next http.Handler) http.Handler {
+	// Create various Prometheus metrics to track HTTP requests
 	var (
 		requestCounter    = p.NewCounterVec(APIRequestsTotal)
 		inFlight          = p.NewGaugeVec(InFlightRequests).WithLabelValues()
@@ -682,7 +792,7 @@ func (w *WebPA) decorateWithBasicMetrics(p xmetrics.PrometheusProvider, next htt
 	//todo: Example documentation does something interesting with /pull vs. /push endpoints
 	//https://godoc.org/github.com/prometheus/client_golang/prometheus/promhttp#InstrumentHandlerDuration
 	//for now, let's keep it simple so /metrics only
-
+	// Instrument the HTTP handler with Prometheus metrics
 	return promhttp.InstrumentHandlerInFlight(inFlight,
 		promhttp.InstrumentHandlerCounter(requestCounter,
 			promhttp.InstrumentHandlerDuration(requestDuration,
