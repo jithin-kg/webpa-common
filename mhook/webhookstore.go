@@ -2,6 +2,7 @@ package mhook
 
 import (
 	"errors"
+	"fmt"
 	"sync"
 )
 
@@ -37,7 +38,8 @@ func (ws *webhookStore) Add(owner string, w *Webhook) error {
 
 	// Add the webhook
 	ws.store[owner][w.Config.URL] = w
-
+	// Log the added webhook
+	fmt.Printf("__WebhookStore.go: Added webhook: %+v\n", *w)
 	return nil
 }
 

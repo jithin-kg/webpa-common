@@ -1,12 +1,14 @@
 package mhook
 
 import (
+	"fmt"
 	"net/http"
 
 	kithttp "github.com/go-kit/kit/transport/http"
 )
 
 func NewAddWebhookHandler(s Service) http.Handler {
+	fmt.Println("__hanlder.go: NewAddWebhookHandler() called")
 	return kithttp.NewServer(
 		newAddWebhookEndpoint(s),
 		decodeAddWebhookRequest,

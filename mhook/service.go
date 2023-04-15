@@ -1,6 +1,7 @@
 package mhook
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/go-kit/kit/log"
@@ -27,6 +28,7 @@ type service struct {
 }
 
 func (s *service) Add(owner string, w *Webhook) error {
+	fmt.Printf("__Service.go: Add() called with owner %s and webhook %+v\n", owner, w)
 	return s.store.Add(owner, w)
 }
 
