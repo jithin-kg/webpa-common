@@ -37,7 +37,7 @@ func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 	// s.loggers.Debug.Log("msg", "AllWebhooks called", "owner", owner)
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Println("Panic:", r)
+			fmt.Println("__Service.go AllWebhooks Panic :", r)
 			debug.PrintStack()
 		}
 	}()
