@@ -40,6 +40,7 @@ func (ws *webhookStore) Add(owner string, w *Webhook) error {
 	ws.store[owner][w.Config.URL] = w
 	// Log the added webhook
 	fmt.Printf("__WebhookStore.go: Added webhook: %+v\n", *w)
+	fmt.Printf("__WebhookStore.go: Add() current store is : %+v\n", ws.store)
 	return nil
 }
 
@@ -64,6 +65,7 @@ func (ws *webhookStore) Delete(owner string, url string) error {
 }
 
 func (ws *webhookStore) AllWebhooks(owner string) ([]Webhook, error) {
+	fmt.Printf("__WebhookStore.go: AllWebhooks() Owner is: %s\n", owner)
 	ws.mu.RLock()
 	defer ws.mu.RUnlock()
 
@@ -77,6 +79,6 @@ func (ws *webhookStore) AllWebhooks(owner string) ([]Webhook, error) {
 	for _, w := range ws.store[owner] {
 		webhooks = append(webhooks, *w)
 	}
-
+	fmt.Printf("__WebhookStore.go: AllWebhooks() current store is : %+v\n", ws.store)
 	return webhooks, nil
 }
