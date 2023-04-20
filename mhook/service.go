@@ -32,7 +32,7 @@ func (s *service) Add(owner string, w *Webhook) error {
 	return s.store.Add(owner, w)
 }
 
-func (s *service) AllWebhooks(owner string) ([]Webhook, error) {
+func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 	// s.loggers.Debug.Log("msg", "AllWebhooks called", "owner", owner)
 	webhooks, err := s.store.AllWebhooks(owner)
 	if err != nil {
@@ -40,11 +40,11 @@ func (s *service) AllWebhooks(owner string) ([]Webhook, error) {
 	}
 
 	// Create a new slice of *Webhook type
-	webhooksPtr := make([]Webhook, len(webhooks))
+	webhooksPtr := make([]*Webhook, len(webhooks))
 
 	// Copy the contents of webhooks slice to webhooksPtr slice
 	for i, wh := range webhooks {
-		webhooksPtr[i] = wh
+		webhooksPtr[i] = &wh
 	}
 
 	return webhooksPtr, nil
