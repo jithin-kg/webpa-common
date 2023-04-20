@@ -9,7 +9,7 @@ import (
 type WebhookStore interface {
 	Add(owner string, w *Webhook) error
 	Delete(owner string, url string) error
-	AllWebhooks(owner string) ([]Webhook, error)
+	AllWebhooks(owner string) ([]*Webhook, error)
 }
 type webhookStore struct {
 	store map[string]map[string]*Webhook // owner -> url -> Webhook
@@ -64,20 +64,20 @@ func (ws *webhookStore) Delete(owner string, url string) error {
 	return nil
 }
 
-func (ws *webhookStore) AllWebhooks(owner string) ([]Webhook, error) {
+func (ws *webhookStore) AllWebhooks(owner string) ([]*Webhook, error) {
 	fmt.Printf("__WebhookStore.go: AllWebhooks() Owner is: %s\n", owner)
 	ws.mu.RLock()
 	defer ws.mu.RUnlock()
 
 	// Check if the owner's map exists
 	if ws.store[owner] == nil {
-		return []Webhook{}, nil
+		return []*Webhook{}, nil
 	}
 
 	// Convert the map of webhooks to a slice
-	webhooks := make([]Webhook, 0, len(ws.store[owner]))
+	webhooks := make([]*Webhook, 0, len(ws.store[owner]))
 	for _, w := range ws.store[owner] {
-		webhooks = append(webhooks, *w)
+		webhooks = append(webhooks, w)
 	}
 	fmt.Printf("__WebhookStore.go: AllWebhooks() current store is : %+v\n", ws.store)
 	return webhooks, nil

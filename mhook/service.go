@@ -2,6 +2,7 @@ package mhook
 
 import (
 	"fmt"
+	"runtime/debug"
 	"time"
 
 	"github.com/go-kit/kit/log"
@@ -34,7 +35,15 @@ func (s *service) Add(owner string, w *Webhook) error {
 
 func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 	// s.loggers.Debug.Log("msg", "AllWebhooks called", "owner", owner)
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Panic:", r)
+			debug.PrintStack()
+		}
+	}()
+
 	webhooks, err := s.store.AllWebhooks(owner)
+	fmt.Println("__")
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +53,7 @@ func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 
 	// Copy the contents of webhooks slice to webhooksPtr slice
 	for i, wh := range webhooks {
-		webhooksPtr[i] = &wh
+		webhooksPtr[i] = wh
 	}
 
 	return webhooksPtr, nil
