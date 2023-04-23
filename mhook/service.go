@@ -31,8 +31,8 @@ func (s *service) Add(owner string, w *Webhook) error {
 	if err != nil {
 		return err
 	}
-
-	allWebhooks, err := s.AllWebhooks("")
+// why passing empty string here
+	allWebhooks, err := s.AllWebhooks(owner)
 	if err != nil {
 		return err
 	}
@@ -69,12 +69,13 @@ func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 	return webhooksPtr, nil
 }
 
-func Initialize(cfg *WatchConfig, callback func([]Webhook), watches ...Watch) (Service, func(), error) {
+func Initialize(cfg *WatchConfig,watches ...Watch) (Service, func(), error) {
 	store := NewWebhookStore()
 
 	svc := &service{
 		store: store,
 		callback: func(webhooks []Webhook) {
+			// here watches is empty, so update will never be called
 			for _, watch := range watches {
 				watch.Update(webhooks)
 			}

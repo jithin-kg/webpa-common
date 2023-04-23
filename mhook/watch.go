@@ -1,6 +1,7 @@
 package mhook
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/go-kit/kit/metrics"
@@ -15,8 +16,9 @@ type Watch interface {
 // WatchFunc allows bare functions to pass as Watches.
 type WatchFunc func([]Webhook)
 
-func (f WatchFunc) Update(update []Webhook) {
-	f(update)
+func (f WatchFunc) Update(webhooks []Webhook) {
+	fmt.Println("__watch.go Update() called")
+	f(webhooks)
 }
 
 // Config provides the different options for the initializing the wehbook service.
