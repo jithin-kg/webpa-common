@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	"github.com/go-kit/kit/metrics/generic"
 )
 
 // Service describes the core operations around webhook subscriptions.
@@ -70,6 +71,7 @@ func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 }
 
 func Initialize(cfg *WatchConfig,watches ...Watch) (Service, func(), error) {
+	watches = append(watches, webhookListSizeWatch(generic.NewGauge(WebhookListSizeGauge)))
 	store := NewWebhookStore()
 
 	svc := &service{
