@@ -43,5 +43,6 @@ require (
 	github.com/ugorji/go/codec v1.1.7
 	github.com/xmidt-org/bascule v0.8.0
 	github.com/xmidt-org/wrp-go/v3 v3.0.1
+	golang.org/x/sys v0.7.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )

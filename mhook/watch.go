@@ -20,7 +20,7 @@ func (f WatchFunc) Update(update []Webhook) {
 }
 
 // Config provides the different options for the initializing the wehbook service.
-type Config struct {
+type WatchConfig struct {
 	// Webhooks contains the list of webhooks to be used by the webhook service
 	Webhooks []Webhook
 
