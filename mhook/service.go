@@ -71,6 +71,7 @@ func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 }
 
 func Initialize(cfg *WatchConfig,watches ...Watch) (Service, func(), error) {
+	fmt.Println("__Service.go initialize ")
 	watches = append(watches, webhookListSizeWatch(generic.NewGauge(WebhookListSizeGauge)))
 	store := NewWebhookStore()
 
