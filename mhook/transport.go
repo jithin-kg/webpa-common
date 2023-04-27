@@ -155,9 +155,9 @@ func validateWebhook(webhook *Webhook, requestOriginAddress string) (err error) 
 	// always set duration to default
 	webhook.Duration = defaultWebhookExpiration
 
-	if &webhook.Until == nil || webhook.Until.Equal(time.Time{}) {
-		webhook.Until = time.Now().Add(webhook.Duration)
-	}
+	// if &webhook.Until == nil || webhook.Until.Equal(time.Time{}) {
+	// 	webhook.Until = time.Now().Add(webhook.Duration)
+	// }
 
 	return nil
 }
