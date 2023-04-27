@@ -19,6 +19,7 @@ import (
 type Service interface {
 	Add(owner string, w *Webhook) error
 	AllWebhooks(owner string) ([]*Webhook, error)
+	AddWebhookFromYaml(yamlFile string) error
 }
 
 type loggerGroup struct {
