@@ -97,7 +97,7 @@ func Initialize(cfg *WatchConfig, watches ...Watch) (Service, func(), error) {
 	}
 	return svc, func() { /*...*/ }, nil
 }
-func (s *service) addWebhookFromYaml(yamlFile string) error {
+func (s *service) AddWebhookFromYaml(yamlFile string) error {
 	data, err := ioutil.ReadFile(yamlFile)
 	if err != nil {
 		return err
