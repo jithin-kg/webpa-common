@@ -45,4 +45,5 @@ require (
 	github.com/xmidt-org/wrp-go/v3 v3.0.1
 	golang.org/x/sys v0.7.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	gopkg.in/yaml.v2 v2.2.4 // indirect
 )

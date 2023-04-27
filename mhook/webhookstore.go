@@ -12,13 +12,15 @@ type WebhookStore interface {
 	AllWebhooks(owner string) ([]*Webhook, error)
 }
 type webhookStore struct {
-	store map[string]map[string]*Webhook // owner -> url -> Webhook
-	mu    sync.RWMutex
+	store  map[string]map[string]*Webhook // owner -> url -> Webhook
+	mu     sync.RWMutex
+	logger *loggerGroup
 }
 
-func NewWebhookStore() WebhookStore {
+func NewWebhookStore(logger *loggerGroup) WebhookStore {
 	return &webhookStore{
-		store: make(map[string]map[string]*Webhook),
+		store:  make(map[string]map[string]*Webhook),
+		logger: logger,
 	}
 }
 
@@ -39,8 +41,8 @@ func (ws *webhookStore) Add(owner string, w *Webhook) error {
 	// Add the webhook
 	ws.store[owner][w.Config.URL] = w
 	// Log the added webhook
-	fmt.Printf("__WebhookStore.go: Added webhook: %+v\n", *w)
-	fmt.Printf("__WebhookStore.go: Add() current store is : %+v\n", ws.store)
+	ws.logger.Debug.Log("msg", fmt.Sprintf("Add() Added webhook: %+v\n", *w))
+	ws.logger.Debug.Log("msg", fmt.Sprintf(" Add() current store is : %+v\n", ws.store))
 	return nil
 }
 
@@ -65,7 +67,7 @@ func (ws *webhookStore) Delete(owner string, url string) error {
 }
 
 func (ws *webhookStore) AllWebhooks(owner string) ([]*Webhook, error) {
-	fmt.Printf("__WebhookStore.go: AllWebhooks() Owner is: %s\n", owner)
+	ws.logger.Debug.Log("msg", fmt.Sprintf("AllWebhooks() Owner is: %s\n", owner))
 	ws.mu.RLock()
 	defer ws.mu.RUnlock()
 
@@ -79,6 +81,6 @@ func (ws *webhookStore) AllWebhooks(owner string) ([]*Webhook, error) {
 	for _, w := range ws.store[owner] {
 		webhooks = append(webhooks, w)
 	}
-	fmt.Printf("__WebhookStore.go: AllWebhooks() current store is : %+v\n", ws.store)
+	ws.logger.Debug.Log("msg", fmt.Sprintf("AllWebhooks() current store is : %+v\n", ws.store))
 	return webhooks, nil
 }
