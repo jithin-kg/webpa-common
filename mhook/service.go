@@ -77,7 +77,7 @@ func (s *service) AllWebhooks(owner string) ([]*Webhook, error) {
 	return webhooksPtr, nil
 }
 
-func Initialize(cfg *WatchConfig, watches ...Watch) (Service, func(), error) {
+func Initialize(watches ...Watch) (Service, func(), error) {
 	rootLogger := log.NewLogfmtLogger(os.Stdout)
 	rootLogger = log.With(rootLogger, "ts", log.DefaultTimestampUTC)
 	rootLogger = log.With(rootLogger, "caller", log.DefaultCaller)
